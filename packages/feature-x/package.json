@@ -1,0 +1,13 @@
+{
+  "name": "@sps/feature-x",
+  "version": "1.0.0",
+  "main": "src/index.jsx",
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "dependencies": {
+    "@sps/ui-components": "*",
+    "@sps/utils": "*"
+  }
+}
