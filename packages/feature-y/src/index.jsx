@@ -5,15 +5,16 @@ import { storage, formatDuration, formatDate, generateId } from '@sps/utils';
 export const Pomodoro = () => {
   const [focusTime, setFocusTime] = useState(25);
   const [breakTime, setBreakTime] = useState(5);
-  
+
   const [mode, setMode] = useState('focus'); // 'focus' | 'break'
   const [timeLeft, setTimeLeft] = useState(focusTime * 60);
   const [isActive, setIsActive] = useState(false);
-  
+
   const [history, setHistory] = useState(() => storage.get('pomodoro_history', []));
-  
+
   const timerRef = useRef(null);
 
+  //update ui 
   useEffect(() => {
     storage.set('pomodoro_history', history);
   }, [history]);
@@ -43,19 +44,19 @@ export const Pomodoro = () => {
   }, [isActive, timeLeft, mode, focusTime, history]);
 
   const toggleTimer = () => setIsActive(!isActive);
-  
+
   const resetTimer = () => {
     setIsActive(false);
     setTimeLeft(mode === 'focus' ? focusTime * 60 : breakTime * 60);
   };
 
-  const today = new Date().setHours(0,0,0,0);
+  const today = new Date().setHours(0, 0, 0, 0);
   const todaysFocusTime = history
-    .filter(s => s.type === 'focus' && new Date(s.date).setHours(0,0,0,0) === today)
+    .filter(s => s.type === 'focus' && new Date(s.date).setHours(0, 0, 0, 0) === today)
     .reduce((acc, curr) => acc + curr.duration, 0);
 
-  const progressPercent = mode === 'focus' 
-    ? ((focusTime * 60 - timeLeft) / (focusTime * 60)) * 100 
+  const progressPercent = mode === 'focus'
+    ? ((focusTime * 60 - timeLeft) / (focusTime * 60)) * 100
     : ((breakTime * 60 - timeLeft) / (breakTime * 60)) * 100;
 
   return (
@@ -75,7 +76,7 @@ export const Pomodoro = () => {
             <div style={{ fontSize: '80px', fontWeight: 'bold', margin: '32px 0', fontFamily: 'monospace', color: 'var(--text-main)', letterSpacing: '4px' }}>
               {formatDuration(timeLeft)}
             </div>
-            
+
             <div style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
               <Button onClick={toggleTimer} style={{ minWidth: '120px', fontSize: '16px', padding: '12px 24px' }}>
                 {isActive ? 'Pause' : 'Start'}
@@ -91,20 +92,20 @@ export const Pomodoro = () => {
             <h3 style={{ marginTop: 0, marginBottom: '24px', color: 'var(--text-main)' }}>Timer Settings</h3>
             <div style={{ display: 'flex', gap: '24px' }}>
               <div style={{ flex: 1 }}>
-                <TextField 
-                  label="Focus Duration (min)" 
-                  type="number" 
-                  value={focusTime} 
-                  onChange={e => setFocusTime(Number(e.target.value))} 
+                <TextField
+                  label="Focus Duration (min)"
+                  type="number"
+                  value={focusTime}
+                  onChange={e => setFocusTime(Number(e.target.value))}
                   disabled={isActive}
                 />
               </div>
               <div style={{ flex: 1 }}>
-                <TextField 
-                  label="Break Duration (min)" 
-                  type="number" 
-                  value={breakTime} 
-                  onChange={e => setBreakTime(Number(e.target.value))} 
+                <TextField
+                  label="Break Duration (min)"
+                  type="number"
+                  value={breakTime}
+                  onChange={e => setBreakTime(Number(e.target.value))}
                   disabled={isActive}
                 />
               </div>
