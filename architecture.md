@@ -4,7 +4,9 @@
 This repository uses a monorepo architecture managed by **Turborepo** and npm workspaces. It is designed to separate concerns across multiple internal packages and compose them into a host web application.
 
 ## Packages
-- **`@sps/ui-components` (`packages/ui-components`)**: A library of reusable, stateless React components (Button, Card, Modal, etc.). It acts as the core design system and does not depend on any internal packages.
+- **`@sps/ui-components` (`packages/ui-components`)**: A library  reusable, stateless React components (Button, Card, Modal, etc.). It acts as the core design system and does not depend on any internal packages.
+// it is a common ui
+
 - **`@sps/utils` (`packages/utils`)**: A library of shared utilities (date formatting, ID generation, LocalStorage helpers). It is framework-agnostic and does not depend on any internal packages.
 - **`@sps/feature-x` (`packages/feature-x`)**: The Task Planner feature module. It depends on `@sps/ui-components` for UI elements and `@sps/utils` for state persistence and ID generation.
 - **`@sps/feature-y` (`packages/feature-y`)**: The Pomodoro Timer feature module. It depends on `@sps/ui-components` and `@sps/utils` for UI and timer formatting/storage.
